@@ -14,6 +14,9 @@ RUN wget -O /tmp/zeppelin-${ZEPPELIN_VER}-bin-all.tgz http://archive.apache.org/
 
 EXPOSE 8080 8443
 
+# Install GDAL utilities
+RUN apt-get install -y gdal-bin
+
 VOLUME ${ZEPPELIN_HOME}/logs \
        ${ZEPPELIN_HOME}/notebook
 
