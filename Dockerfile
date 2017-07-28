@@ -12,6 +12,9 @@ RUN wget -O /tmp/zeppelin-${ZEPPELIN_VER}-bin-all.tgz http://archive.apache.org/
 	rm -rf /tmp/zeppelin-${ZEPPELIN_VER}-bin-all.tgz && \
 	mv /zeppelin-${ZEPPELIN_VER}-bin-all ${ZEPPELIN_HOME}
 
+# Install GDAL utilities
+RUN apt-get install -y gdal-bin
+
 EXPOSE 8080 8443
 
 VOLUME ${ZEPPELIN_HOME}/logs \
