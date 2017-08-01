@@ -21,4 +21,6 @@ VOLUME ${ZEPPELIN_HOME}/logs \
        ${ZEPPELIN_HOME}/notebook
 
 WORKDIR ${ZEPPELIN_HOME}
-CMD ./bin/zeppelin.sh run
+
+COPY ./docker-entrypoint.sh /
+CMD ["/docker-entrypoint.sh"]
