@@ -10,6 +10,4 @@ else
   echo "Using default Shiro configuration"
 fi
 
-echo $(ls)
-
 ./bin/zeppelin.sh run

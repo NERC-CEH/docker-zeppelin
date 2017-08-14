@@ -40,15 +40,15 @@ if [ $(id -u) == 0 ] ; then
   echo "Execute the command as $ZEPPELIN_USER"
   exec su $ZEPPELIN_USER -c "env PATH=$PATH $*"
 else
-if [[ ! -z "$ZEPPELIN_UID" && "$ZEPPELIN_UID" != "$(id -u)" ]]; then
-  echo 'Container must be run as root to set $ZEPPELIN_UID'
-fi
-if [[ ! -z "$ZEPPELIN_GID" && "$ZEPPELIN_GID" != "$(id -g)" ]]; then
-  echo 'Container must be run as root to set $ZEPPELIN_GID'
-fi
-if [[ "$GRANT_SUDO" == "1" || "$GRANT_SUDO" == "yes" ]]; then
-  echo 'Container must be run as root to grant sudo permissions'
-fi
-  echo "Execute the command"
-  exec $*
+  if [[ ! -z "$ZEPPELIN_UID" && "$ZEPPELIN_UID" != "$(id -u)" ]]; then
+    echo 'Container must be run as root to set $ZEPPELIN_UID'
+  fi
+  if [[ ! -z "$ZEPPELIN_GID" && "$ZEPPELIN_GID" != "$(id -g)" ]]; then
+    echo 'Container must be run as root to set $ZEPPELIN_GID'
+  fi
+  if [[ "$GRANT_SUDO" == "1" || "$GRANT_SUDO" == "yes" ]]; then
+    echo 'Container must be run as root to grant sudo permissions'
+  fi
+    echo "Execute the command"
+    exec $*
 fi
