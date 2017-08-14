@@ -19,11 +19,6 @@ RUN wget -O /tmp/zeppelin-${ZEPPELIN_VER}-bin-all.tgz http://archive.apache.org/
 RUN useradd -m -s /bin/bash -N -u $ZEPPELIN_UID $ZEPPELIN_USER && \
     chown -R $ZEPPELIN_USER $ZEPPELIN_HOME
 
-# Install Tini
-RUN wget -O /tmp/tini https://github.com/krallin/tini/releases/download/v0.15.0/tini && \
-    mv /tmp/tini /usr/bin/tini && \
-    chmod +x /usr/bin/tini
-
 # Install sudo & GDAL utilities
 RUN apt-get install -y sudo gdal-bin
 
