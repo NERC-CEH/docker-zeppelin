@@ -22,6 +22,9 @@ RUN useradd -m -s /bin/bash -N -u $ZEPPELIN_UID $ZEPPELIN_USER && \
 # Install sudo & GDAL utilities
 RUN apt-get install -y sudo gdal-bin
 
+# Install KnitR for SparkR
+RUN R -e "install.packages('knitr', repo='https://cloud.r-project.org/')"
+
 EXPOSE 8080 8443
 
 WORKDIR ${ZEPPELIN_HOME}
