@@ -1,4 +1,4 @@
-FROM nerc/spark-core:2.1.0
+FROM nerc/spark-core:2.1.0.1
 
 LABEL maintainer "gareth.lloyd@stfc.ac.uk"
 
@@ -21,6 +21,9 @@ RUN useradd -m -s /bin/bash -N -u $ZEPPELIN_UID $ZEPPELIN_USER && \
 
 # Install sudo & GDAL utilities
 RUN apt-get install -y sudo gdal-bin
+
+# Install KnitR for SparkR
+RUN R -e "install.packages('knitr', repo='https://cloud.r-project.org/')"
 
 EXPOSE 8080 8443
 
