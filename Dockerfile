@@ -16,14 +16,14 @@ RUN wget -O /tmp/zeppelin-${ZEPPELIN_VER}-bin-all.tgz http://archive.apache.org/
     mv /zeppelin-${ZEPPELIN_VER}-bin-all ${ZEPPELIN_HOME}
 
 # Add datalab user
-RUN useradd -m -s /bin/bash -N -u $ZEPPELIN_UID $ZEPPELIN_USER && \
-    chown -R $ZEPPELIN_USER $ZEPPELIN_HOME
+RUN R_LIB_SITE_FIXED=$(R --slave -e "write(gsub('%v', R.version\$minor,Sys.getenv('R_LIBS_SITE')), stdout())") && \
+	useradd -m -s /bin/bash -N -u $ZEPPELIN_UID $ZEPPELIN_USER && \
+    chown -R $ZEPPELIN_USER $ZEPPELIN_HOME && \
+    chown -R $ZEPPELIN_USER $SPARK_HOME && \
+    chown -R $ZEPPELIN_USER $R_LIB_SITE_FIXED
 
 # Install sudo & GDAL utilities
 RUN apt-get install -y sudo gdal-bin
-
-# Install KnitR for SparkR
-RUN R -e "install.packages('knitr', repo='https://cloud.r-project.org/')"
 
 EXPOSE 8080 8443
 
