@@ -15,11 +15,8 @@ if [ $(id -u) == 0 ] ; then
     echo "Set user UID to: $ZEPPELIN_UID"
     usermod -u $ZEPPELIN_UID $ZEPPELIN_USER
 
-    # R_LIBS_SITE path has contains R version which need to be to be set by R.
-    R_LIBS_SITE_FIXED=$(R --slave -e "write(gsub('%v', R.version\$minor,Sys.getenv('R_LIBS_SITE')), stdout())")
-
     # Fix permissions for home and zeppelin directories
-    for d in "$ZEPPELIN_HOME" "$SPARK_HOME" "$R_LIBS_SITE_FIXED" "/home/$ZEPPELIN_USER"; do
+    for d in "$ZEPPELIN_HOME" "$R_LIBS_SITE_USER" "/home/$ZEPPELIN_USER"; do
       if [[ ! -z "$d" && -d "$d" ]]; then
         echo "Set ownership to uid $ZEPPELIN_UID: $d"
         chown -R $ZEPPELIN_UID "$d"

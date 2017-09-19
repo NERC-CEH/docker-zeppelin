@@ -16,11 +16,10 @@ RUN wget -O /tmp/zeppelin-${ZEPPELIN_VER}-bin-all.tgz http://archive.apache.org/
     mv /zeppelin-${ZEPPELIN_VER}-bin-all ${ZEPPELIN_HOME}
 
 # Add datalab user
-RUN R_LIB_SITE_FIXED=$(R --slave -e "write(gsub('%v', R.version\$minor,Sys.getenv('R_LIBS_SITE')), stdout())") && \
-	useradd -m -s /bin/bash -N -u $ZEPPELIN_UID $ZEPPELIN_USER && \
+RUN useradd -m -s /bin/bash -N -u $ZEPPELIN_UID $ZEPPELIN_USER && \
     chown -R $ZEPPELIN_USER $ZEPPELIN_HOME && \
-    chown -R $ZEPPELIN_USER $SPARK_HOME && \
-    chown -R $ZEPPELIN_USER $R_LIB_SITE_FIXED
+    mkdir -p $R_LIBS_SITE_USER && \
+    chown -R $ZEPPELIN_USER $R_LIBS_SITE_USER
 
 # Install sudo & GDAL utilities
 RUN apt-get install -y sudo gdal-bin
