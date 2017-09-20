@@ -1,4 +1,4 @@
-FROM nerc/spark-core:2.1.0.2
+FROM nerc/spark-core:2.1.0.3
 
 LABEL maintainer "gareth.lloyd@stfc.ac.uk"
 
@@ -17,13 +17,12 @@ RUN wget -O /tmp/zeppelin-${ZEPPELIN_VER}-bin-all.tgz http://archive.apache.org/
 
 # Add datalab user
 RUN useradd -m -s /bin/bash -N -u $ZEPPELIN_UID $ZEPPELIN_USER && \
-    chown -R $ZEPPELIN_USER $ZEPPELIN_HOME
+    chown -R $ZEPPELIN_USER $ZEPPELIN_HOME && \
+    mkdir -p $R_LIBS_SITE_USER && \
+    chown -R $ZEPPELIN_USER $R_LIBS_SITE_USER
 
 # Install sudo & GDAL utilities
 RUN apt-get install -y sudo gdal-bin
-
-# Install KnitR for SparkR
-RUN R -e "install.packages('knitr', repo='https://cloud.r-project.org/')"
 
 EXPOSE 8080 8443
 

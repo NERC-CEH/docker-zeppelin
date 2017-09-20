@@ -16,7 +16,7 @@ if [ $(id -u) == 0 ] ; then
     usermod -u $ZEPPELIN_UID $ZEPPELIN_USER
 
     # Fix permissions for home and zeppelin directories
-    for d in "$ZEPPELIN_HOME" "/home/$ZEPPELIN_USER"; do
+    for d in "$ZEPPELIN_HOME" "$R_LIBS_SITE_USER" "/home/$ZEPPELIN_USER"; do
       if [[ ! -z "$d" && -d "$d" ]]; then
         echo "Set ownership to uid $ZEPPELIN_UID: $d"
         chown -R $ZEPPELIN_UID "$d"
